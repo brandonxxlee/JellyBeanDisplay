@@ -16,7 +16,7 @@ def bart_info():
 
     for x in dbrk:
         destination = x['destination']
-        value = [train['minutes'] for train in x['estimates']]
+        value = (x['estimates'][0]['hexcolor'], [train['minutes'] for train in x['estimates']][0:2])
         result[destination] = value
     return result
 
