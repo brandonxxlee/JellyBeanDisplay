@@ -14,11 +14,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
   <style>
-  .bart{
-    margin: 30px;
-  }
   .card {
     margin: 30px;
+    width: 46%;
+    float: left;
   }
   .card-text{
     float: left;
@@ -28,6 +27,7 @@
   .card-title{
     padding: 10px;
     border-radius: 4px;
+    font-size: 8vh;
   }
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -42,15 +42,14 @@
 
 <body>
   <div class="bart">
-    <h1 id="var_name">Downtown Berkeley BART Station</h1>
     {% if trains %}
     {% for train in trains %}
-    <div class="card" style="width: 20rem;">
+    <div class="card">
       <div class="card-block">
-        <h4 class="card-title" style="background-color: {{ trains[train][0]}}">{{ train }}</h4>
-        {% for estimate in trains[train][1] %}
-        <div class="card-text">{{ estimate }} min</div>
-        {% endfor %}
+        <h4 class="card-title" style="background-color: {{ trains[train][0]}}">{{ train }}{% for estimate in trains[train][1] %}
+        {{ estimate }} min
+        {% endfor %}</h4>
+
       </div>
     </div>
     {% endfor %}
