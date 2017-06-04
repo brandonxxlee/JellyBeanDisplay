@@ -4,7 +4,7 @@ import datetime
 import os
 import time
 
-TOKEN = "B9CED52AAF3A164151F67A8505891D45"
+TOKEN = "token"
 STOP_IDS = {'52':'57300','F':'57776','51B':'55999'}
 
 
@@ -12,12 +12,13 @@ STOP_IDS = {'52':'57300','F':'57776','51B':'55999'}
 def bart_info():
     bart = BartApi()
     dbrk = bart.etd("DBRK")
+    result = {}
 
     for x in dbrk:
-        print(x['destination'])
-        for train in x['estimates']:
-            print(train['minutes'])
-        print("******************")
+        destination = x['destination']
+        value = [train['minutes'] for train in x['estimates']]
+        result[destination] = value
+    return result
 
 def bus_info():
     stop_id = '51B'
@@ -36,3 +37,4 @@ def bus_info():
             print(int(time_diff.seconds/60))
 
 if __name__ == "__main__":
+    bart_info()
