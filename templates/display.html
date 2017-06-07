@@ -14,9 +14,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
   <style>
+	body {
+		background-color: black;
+	}
   .card {
     margin: 30px;
-    width: 46%;
     float: left;
   }
   .card-text{
@@ -27,8 +29,11 @@
   .card-title{
     padding: 10px;
     border-radius: 4px;
-    font-size: 8vh;
+    font-size: 5rem;
   }
+	.estimates{
+		font-size: 3rem;
+	}
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,9 +51,14 @@
     {% for train in trains %}
     <div class="card">
       <div class="card-block">
-        <h4 class="card-title" style="background-color: {{ trains[train][0]}}">{{ train }}{% for estimate in trains[train][1] %}
-        {{ estimate }} min
-        {% endfor %}</h4>
+        <h4 class="card-title" style="background-color: {{ trains[train][0]}}">{{ train }}</h4>
+				<div class="estimates">
+					{% for estimate in trains[train][1] %}
+					<span class="estimate">
+						{{ estimate }} min
+					</span>
+					{% endfor %}
+				</div>
 
       </div>
     </div>
