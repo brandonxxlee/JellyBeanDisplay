@@ -6,6 +6,7 @@ current_display = None
 test = {"richmond":["10", "20"], "irvine":["90"]}
 @app.route("/")
 def hello():
+    global current_display
     try:
         current_display = render_template('display.html', trains=jellybean.bart_info())
     except:
