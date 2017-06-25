@@ -4,25 +4,33 @@ import datetime
 import os
 import time
 
-TOKEN = "token"
-STOP_IDS = {'52':'57300','F':'57776','51B':'55999'}
-
+AC_TRANSIT_TOKEN = "token"
+STOP_IDS = {'52': '57300', 'F': '57776', '51B': '55999'}
+BART_STATION_KEY = 'DBRK'
 
 
 def bart_info():
-    bart = BartApi()
-    dbrk = bart.etd("DBRK")
+    """
+    Returns a dictionary that maps trainline to color and departure times.
+
+    e.g. {'Warm Spring': ('#ff9933', ['6', '26'])}
+    """
+    bart_station = BartApi().etd(BART_STATION_KEY)
     result = {}
 
-    for x in dbrk:
-        destination = x['destination']
-        value = (x['estimates'][0]['hexcolor'], [train['minutes'] for train in x['estimates']][0:2])
+    for train_line in bart_station:
+        destination = train_line['destination']
+        color = train_line['estimates'][0]['hexcolor']
+        departure_info = [(train['minutes'], train['length']) for train in train_line['estimates']][0:2]
+        value = (color, departure_info)
         result[destination] = value
+
     return result
+
 
 def bus_info():
     stop_id = '51B'
-    request_url = 'http://api.actransit.org/transit/stops/' + STOP_IDS[stop_id] + '/predictions/?token=' + TOKEN
+    request_url = 'http://api.actransit.org/transit/stops/' + STOP_IDS[stop_id] + '/predictions/?token=' + AC_TRANSIT_TOKEN
     response = get(request_url)
 
     if response.status_code == 404:
@@ -37,4 +45,4 @@ def bus_info():
             print(int(time_diff.seconds/60))
 
 if __name__ == "__main__":
-    bart_info()
+    print(bart_info())
