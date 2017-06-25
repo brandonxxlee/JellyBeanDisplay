@@ -10,13 +10,14 @@ while True:
         print('handling error')
         continue
     display = easy_cereal.Display()
+
     for station in info:
-        display.print(station)
+        display.print(station, size=24)
         display.new_line()
         for train in info[station][1]:
             if (train[0].lower() == 'leaving'):
-                display.print("%s. L%s" % (train))
+                display.print("    %s. L%s" % (train), size=24)
             else:
-                display.print("%s min. L%s" % (train))
+                display.print("    %s min. L%s" % (train), size=24)
             display.new_line()
-    time.sleep(5)
+    time.sleep(30)
